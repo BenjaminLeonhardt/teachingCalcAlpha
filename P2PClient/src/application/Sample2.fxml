@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javaFXValidation.*?>
+
+<BorderPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+   <top>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <AnchorPane>
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="60.0" stroke="WHITE" strokeType="INSIDE" width="1024.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="0.0" />
+                  <Label layoutX="14.0" layoutY="35.0" text="Verbundene Peers">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="516.0" layoutY="35.0" text="Dateien des Peers">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="4.0" text="Status:">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblStatus" layoutX="79.0" layoutY="4.0" text="Offline" textFill="#ae0404">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnChat" layoutX="887.0" layoutY="20.0" mnemonicParsing="false" onAction="#chatOeffnen" text="Chat-Fenster öffnen" />
+                  <Button fx:id="btnDownload" layoutX="751.0" layoutY="20.0" mnemonicParsing="false" onAction="#downloadDatei" text="Datei Downloaden" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </top>
+   <left>
+      <TableView fx:id="peersListe" onMouseClicked="#setClient" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="38.0" text="ID" />
+          <TableColumn fx:id="socket" prefWidth="183.0" text="Socket" />
+            <TableColumn fx:id="name" prefWidth="160.0" text="Name" />
+            <TableColumn fx:id="os" prefWidth="128.0" text="OS" />
+        </columns>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </TableView>
+   </left>
+   <right>
+      <TableView fx:id="dateienListe" onMouseClicked="#doppelKlickAufDatei" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="dateiname" prefWidth="226.0" text="Dateiname" />
+          <TableColumn fx:id="groesse" minWidth="0.0" prefWidth="165.0" text="Größe" />
+          <TableColumn fx:id="fortschritt" minWidth="0.0" prefWidth="124.0" text="Fortschritt" />
+        </columns>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </TableView>
+   </right>
+   <bottom>
+      <AnchorPane BorderPane.alignment="CENTER">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="150.0" stroke="BLACK" strokeType="INSIDE" width="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" />
+            <Label layoutX="34.0" layoutY="33.0" text="Server IP:" />
+            <IPTextfield fx:id="serverIPField" layoutX="105.0" layoutY="29.0" onAction="#setIp" promptText="Server IP eingeben" text="192.168.2.104" />
+            <Label layoutX="34.0" layoutY="65.0" text="Server Port:" />
+            <PortTextField fx:id="serverPortField" layoutX="105.0" layoutY="61.0" onAction="#setPort" promptText="Server Port eingeben" text="10010" />
+            <Label layoutX="512.0" layoutY="65.0" text="Download/Upload Ordner:" />
+            <TextField fx:id="ShareOrdnerField" layoutX="696.0" layoutY="61.0" promptText="Share Ordner eingeben" text="Downloads" />
+            <Button fx:id="ShareOrdnerSuchenButton" layoutX="883.0" layoutY="61.0" mnemonicParsing="false" onAction="#selectOrdner" text="Öffnen" />
+            <Label layoutX="512.0" layoutY="33.0" text="Name:" />
+            <NameTextField fx:id="NameField" layoutX="696.0" layoutY="29.0" onInputMethodTextChanged="#setName" onKeyReleased="#setName" promptText="Deinen Namen eingeben" text="Ben" />
+            <Button fx:id="verbinden" layoutX="105.0" layoutY="94.0" mnemonicParsing="false" onAction="#connect" text="Verbinden" />
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>

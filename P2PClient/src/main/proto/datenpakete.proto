@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package grpcDatenpakete;
+
+service registerServer{
+	rpc registrieren(Peer) returns (stream Peer);
+	rpc logout(Peer) returns (Text);
+}
+
+message Peer{
+	int32 id = 1;
+	string ip = 2;
+	int32 port = 3;
+	string name = 4;
+	string os = 5;
+	string hostname = 6;
+	string publicKey = 7;
+	bool addOrDelete = 8;
+	bool endian = 9;
+}
+
+message PeerListe{
+	repeated Peer peers = 1;
+}
+
+service PeerClient{
+	rpc chat(stream Text) returns (stream Text);
+	rpc fileTransfer(Text) returns (stream file);
+	rpc fileListe(Text) returns (stream Text);
+	rpc heartBeat(stream Text) returns (stream Text);
+}
+
+message Text{
+	string nachricht = 1;
+}
+
+message file{
+	repeated bytes daten = 1;
+	int64 filesize = 2;
+	int64 partsize = 3;
+	int64 partanzahl = 4;
+	int64 part = 5;
+	bool endian = 6;
+	bytes hmac = 7;
+}
